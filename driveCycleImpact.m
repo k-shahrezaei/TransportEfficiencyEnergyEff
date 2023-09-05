@@ -32,7 +32,7 @@ options = optimoptions('fmincon','Display','iter');
 [n,m] = size(model.drivecycle.avgVel); 
 resultsOfAlteringAvgVel =  cell(n,4); 
 
-for i = 1:1
+for i = 1:n
     globalDriveCycles.currentSimulation = i;
     model.drivecycle = driveCycle.setDriveCycleforSimulation(globalDriveCycles); 
     %[x,fval,exitflag,output] = particleswarm(fun,nvars,xmin.',xmax.',options)
@@ -41,11 +41,12 @@ for i = 1:1
     resultsOfAlteringAvgVel{i,2} = x;
     resultsOfAlteringAvgVel{i,3} = fval;
     resultsOfAlteringAvgVel{i,4} = output;
+	i
 end
 
 
 %% Save data
-save(".Results/resultsOfAlteringAvgVel/driveCyclesLonghaul.mat","resultsOfAlteringAvgVel","-v7.3")
+save("Results\driveCyclesLonghaul.mat","resultsOfAlteringAvgVel","-v7.3")
 
 %% Fmincon
 function F = objval(x)
